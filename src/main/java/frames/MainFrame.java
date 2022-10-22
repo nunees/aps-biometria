@@ -1,9 +1,7 @@
-package Frames;
+package frames;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,11 +18,7 @@ public class MainFrame extends JFrame {
         getContentPane().setLayout(null);
         setLocationRelativeTo(null);
         setResizable(false);
-
-        // cria os componentes
         setPanel();
-
-        // oculta os componentes da janela
         exibe(false);
     }
 
@@ -33,76 +27,31 @@ public class MainFrame extends JFrame {
     }
 
     protected void setPanel() {
-        JToolBar toolBar = new JToolBar();
-        toolBar.setPreferredSize(new Dimension(18, 25));
-        toolBar.setMinimumSize(new Dimension(18, 25));
-        toolBar.setMaximumSize(new Dimension(18, 25));
-        toolBar.setFloatable(false);
-        toolBar.setAlignmentY(0.5f);
-        toolBar.setBounds(0, 0, 444, 25);
-        getContentPane().add(toolBar);
+        JMenuBar menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
 
-        JButton btnAquivo = new JButton("Aquivo");
-        btnAquivo.setPreferredSize(new Dimension(60, 30));
-        btnAquivo.setOpaque(false);
-        btnAquivo.setMinimumSize(new Dimension(60, 30));
-        btnAquivo.setMaximumSize(new Dimension(60, 30));
-        btnAquivo.setMargin(new Insets(2, 10, 2, 10));
-        btnAquivo.setBorder(null);
-        toolBar.add(btnAquivo);
+        JMenu arquivoMenu = new JMenu("Arquivo");
+        JMenuItem novoMenuItem = new JMenuItem("Novo");
+        JMenuItem abrirMenuItem = new JMenuItem("Abrir");
+        JMenuItem sairMenuItem = new JMenuItem("Sair");
+        menuBar.add(arquivoMenu);
+        arquivoMenu.add(novoMenuItem);
+        arquivoMenu.add(abrirMenuItem);
+        arquivoMenu.add(sairMenuItem);
 
-        JButton btnEditar = new JButton("Editar");
-        btnEditar.setSize(new Dimension(55, 30));
-        btnEditar.setPreferredSize(new Dimension(55, 30));
-        btnEditar.setOpaque(false);
-        btnEditar.setMinimumSize(new Dimension(55, 30));
-        btnEditar.setMaximumSize(new Dimension(55, 30));
-        btnEditar.setMargin(new Insets(2, 10, 2, 10));
-        btnEditar.setBorder(null);
-        toolBar.add(btnEditar);
+        JMenu editarMenu = new JMenu("Editar");
+        menuBar.add(editarMenu);
 
-        JButton btnPesquisar = new JButton("Pesquisar");
-        btnPesquisar.setPreferredSize(new Dimension(70, 30));
-        btnPesquisar.setOpaque(false);
-        btnPesquisar.setMinimumSize(new Dimension(70, 30));
-        btnPesquisar.setMaximumSize(new Dimension(70, 30));
-        btnPesquisar.setMargin(new Insets(2, 10, 2, 10));
-        btnPesquisar.setBorder(null);
-        toolBar.add(btnPesquisar);
+        JMenu pesquisarMenu = new JMenu("Pesquisar");
+        JMenuItem pesquisarUsuario = new JMenuItem("Usuario");
+        JMenuItem pesquisardigitais = new JMenuItem("Digitais");
+        menuBar.add(pesquisarMenu);
+        pesquisarMenu.add(pesquisarUsuario);
+        pesquisarMenu.add(pesquisardigitais);
 
-        JButton btnExportar = new JButton("Exportar");
-        btnExportar.setPreferredSize(new Dimension(70, 30));
-        btnExportar.setOpaque(false);
-        btnExportar.setMinimumSize(new Dimension(70, 30));
-        btnExportar.setMaximumSize(new Dimension(70, 30));
-        btnExportar.setMargin(new Insets(2, 10, 2, 10));
-        btnExportar.setBorder(null);
-        toolBar.add(btnExportar);
+        JMenu sobreMenu = new JMenu("Sobre");
+        menuBar.add(sobreMenu);
 
-        JButton btnSobre = new JButton(" Sobre");
-        btnSobre.setPreferredSize(new Dimension(50, 30));
-        btnSobre.setOpaque(false);
-        btnSobre.setMaximumSize(new Dimension(50, 30));
-        btnSobre.setMargin(new Insets(2, 10, 2, 10));
-        btnSobre.setBorder(null);
-        // exibe a janela de Sobre
-        MainFrame princ = this;
-        btnSobre.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                //JPanel sobre = new SobreGUI();
-
-                /*JOptionPane.showOptionDialog(princ,
-                        sobre,
-                        "Sobre",
-                        JOptionPane.NO_OPTION,
-                        JOptionPane.PLAIN_MESSAGE,
-                        null,
-                        new String[]{},
-                        "default"); */
-            }
-        });
-        toolBar.add(btnSobre);
 
         JLabel lblNome = new JLabel("Nome:");
         lblNome.setBounds(10, 35, 49, 16);
@@ -126,7 +75,7 @@ public class MainFrame extends JFrame {
         lblUtimaAtualizacaoDB.setBounds(10, 274, 221, 16);
         getContentPane().add(lblUtimaAtualizacaoDB);
 
-        JLabel lblDataUltAtualizacaoDB = new JLabel(new SimpleDateFormat("dd/MM/yy").format(new Date()));
+        JLabel lblDataUltAtualizacaoDB = new JLabel(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
         lblDataUltAtualizacaoDB.setFont(new Font("Dialog", Font.PLAIN, 12));
         lblDataUltAtualizacaoDB.setBounds(232, 274, 84, 16);
         getContentPane().add(lblDataUltAtualizacaoDB);

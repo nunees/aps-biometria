@@ -1,24 +1,31 @@
-package Frames;
+package frames;
+
+import classes.ValidateLogin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginFrame extends JFrame {
     protected JTextField txtNomeUsuario;
-    protected JButton btnEscanearDigital;
+    public JButton btnEscanearDigital;
     private JDialog jDialog;
+
+    private ValidateLogin validateLogin;
 
     public LoginFrame(Application application, MainFrame mainFrame) {
 
         jDialog = new JDialog(mainFrame,true);
         setUpComponents();
         jDialog.setLocationRelativeTo(mainFrame);
-
+        validateLogin = new ValidateLogin();
     }
 
     protected void setUpComponents() {
         JPanel contentPanel = new JPanel();
+
         jDialog.setTitle("Autenticação necessária");
         jDialog.setBounds(100,100,300,180);
         jDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -43,7 +50,15 @@ public class LoginFrame extends JFrame {
 
         btnEscanearDigital = new JButton("Escanear digital");
         btnEscanearDigital.setBounds(11, 75, 257, 33);
-        //btnEscanearDigital.addActionListener(loginDBCtrl);
+        btnEscanearDigital.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,
+                        "Clicked",
+                        "OK",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        });
         contentPanel.add(btnEscanearDigital);
     }
 

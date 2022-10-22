@@ -1,4 +1,4 @@
-package Frames;
+package frames;
 
 public class Application {
     private String usuario;
