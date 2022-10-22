@@ -1,26 +1,26 @@
 package frames;
 
-import classes.ValidateLogin;
+import security.ValidateFingerprint;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class LoginFrame extends JFrame {
     protected JTextField txtNomeUsuario;
     public JButton btnEscanearDigital;
     private JDialog jDialog;
 
-    private ValidateLogin validateLogin;
+
 
     public LoginFrame(Application application, MainFrame mainFrame) {
 
         jDialog = new JDialog(mainFrame,true);
         setUpComponents();
         jDialog.setLocationRelativeTo(mainFrame);
-        validateLogin = new ValidateLogin();
     }
 
     protected void setUpComponents() {
@@ -53,10 +53,12 @@ public class LoginFrame extends JFrame {
         btnEscanearDigital.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,
-                        "Clicked",
-                        "OK",
-                        JOptionPane.WARNING_MESSAGE);
+                //String path = JOptionPane.showInputDialog("Insira o caminho da imagem que contém sua digital: ");
+                try {
+                    new ValidateFingerprint();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         contentPanel.add(btnEscanearDigital);
