@@ -1,4 +1,7 @@
-package frames;
+package app;
+
+import frames.LoginFrame;
+import frames.MainFrame;
 
 public class Application {
     private String usuario;

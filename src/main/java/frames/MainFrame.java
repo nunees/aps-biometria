@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
         exibe(false);
     }
 
-    protected void exibe(boolean op){
+    public void exibe(boolean op){
         getContentPane().setVisible(op);
     }
 

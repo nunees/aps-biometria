@@ -1,5 +1,6 @@
 package frames;
 
+import app.Application;
 import security.ValidateFingerprint;
 
 import javax.swing.*;
@@ -53,9 +54,11 @@ public class LoginFrame extends JFrame {
         btnEscanearDigital.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //String path = JOptionPane.showInputDialog("Insira o caminho da imagem que contém sua digital: ");
                 try {
-                    new ValidateFingerprint();
+                    new ValidateFingerprint(txtNomeUsuario.getText());
+                    if(ValidateFingerprint.isUserAllowed){
+                        jDialog.dispose();
+                    }
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -63,11 +66,6 @@ public class LoginFrame extends JFrame {
         });
         contentPanel.add(btnEscanearDigital);
     }
-
-    protected void setMode(boolean visible, JFrame instanceOfJFrame){
-        instanceOfJFrame.setVisible(visible);
-    }
-
     public JDialog getJDialog(){
         return jDialog;
     }
