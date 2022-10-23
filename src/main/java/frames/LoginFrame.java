@@ -1,6 +1,5 @@
 package frames;
 
-import app.Application;
 import security.ValidateFingerprint;
 
 import javax.swing.*;
@@ -11,21 +10,22 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class LoginFrame extends JFrame {
+    private JDialog progressbarDialog;
     protected JTextField txtNomeUsuario;
     public JButton btnEscanearDigital;
     private JDialog jDialog;
+    private MainFrame mainFrame;
 
-
-
-    public LoginFrame(Application application, MainFrame mainFrame) {
-
-        jDialog = new JDialog(mainFrame,true);
+    public LoginFrame(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+        jDialog = new JDialog(this.mainFrame,true);
         setUpComponents();
         jDialog.setLocationRelativeTo(mainFrame);
     }
 
     protected void setUpComponents() {
         JPanel contentPanel = new JPanel();
+        JFrame mainWindow = this;
 
         jDialog.setTitle("Autenticação necessária");
         jDialog.setBounds(100,100,300,180);
@@ -55,13 +55,15 @@ public class LoginFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new ValidateFingerprint(txtNomeUsuario.getText());
+                    new ValidateFingerprint(txtNomeUsuario.getText(),mainWindow);
+
                     if(ValidateFingerprint.isUserAllowed){
                         jDialog.dispose();
                     }
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
+
             }
         });
         contentPanel.add(btnEscanearDigital);
@@ -69,4 +71,6 @@ public class LoginFrame extends JFrame {
     public JDialog getJDialog(){
         return jDialog;
     }
+
+
 }
