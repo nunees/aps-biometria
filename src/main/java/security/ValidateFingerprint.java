@@ -18,33 +18,38 @@ import java.nio.file.Paths;
 
 public class ValidateFingerprint {
     public static boolean isUserAllowed;
-    private static final String fingerPrintsPath = "src/main/java/security/fingerprints/";
 
     private JDialog progressbarDialog;
 
     public ValidateFingerprint(String username, JFrame owner) throws IOException {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.showSaveDialog(null);
 
-        String userPath = JOptionPane.showInputDialog("Caminho do arquivo: ");
+        String userPath = fileChooser.getSelectedFile().toString();
 
-        System.out.print("Hit validatefunction");
-
-        if (isFingerprintPresent(userPath, owner)) {
-            System.out.print("Enter true loop");
-            showProgressBar(false, owner);
-            JOptionPane.showMessageDialog(null, "Digitais aceitas\nBem vindo " + username + "!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            ValidateFingerprint.isUserAllowed = true;
-        } else {
-            System.out.print("enter false loop");
-            showProgressBar(false, owner);
-            ValidateFingerprint.isUserAllowed = false;
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado", "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
+        showProgressBar(true, owner);
+        try{
+            if (isFingerprintPresent(userPath, owner)) {
+                System.out.print("Enter true loop");
+                showProgressBar(false, owner);
+                JOptionPane.showMessageDialog(null, "Digitais aceitas\nBem vindo " + username + "!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                ValidateFingerprint.isUserAllowed = true;
+            } else {
+                System.out.print("enter false loop");
+                showProgressBar(false, owner);
+                ValidateFingerprint.isUserAllowed = false;
+                JOptionPane.showMessageDialog(null, "Acesso não autorizado", "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage(), "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
     public boolean isFingerprintPresent(String userPath, JFrame owner) {
-        showProgressBar(true, owner);
         try {
-            System.out.print("Algo function");
+            String fingerPrintsPath = "src/main/java/security/fingerprints/";
             FingerprintTemplate probe = new FingerprintTemplate(
                     new FingerprintImage(Files.readAllBytes(Paths.get(fingerPrintsPath + "finger.png"))
                             , new FingerprintImageOptions().dpi(500)));
@@ -55,7 +60,6 @@ public class ValidateFingerprint {
 
 
             double score = new FingerprintMatcher(probe).match(candidate);
-            System.out.print("Algo done");
 
             return score >= 80;
         } catch (IOException ioe) {

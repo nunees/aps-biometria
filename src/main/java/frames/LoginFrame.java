@@ -49,7 +49,7 @@ public class LoginFrame extends JFrame {
         contentPanel.add(txtNomeUsuario);
         txtNomeUsuario.setColumns(10);
 
-        btnEscanearDigital = new JButton("Escanear digital");
+        btnEscanearDigital = new JButton("Importar digital");
         btnEscanearDigital.setBounds(11, 75, 257, 33);
         btnEscanearDigital.addActionListener(new ActionListener() {
             @Override
