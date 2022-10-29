@@ -1,20 +1,22 @@
 package frames;
 
 import security.ValidateFingerprint;
+import utils.Progressbar;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.IOException;
 
 public class LoginFrame extends JFrame {
-    private JDialog progressbarDialog;
     protected JTextField txtNomeUsuario;
     public JButton btnEscanearDigital;
     private JDialog jDialog;
     private MainFrame mainFrame;
+
+    private ValidateFingerprint validateFingerprint;
+
 
     public LoginFrame(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -51,19 +53,37 @@ public class LoginFrame extends JFrame {
 
         btnEscanearDigital = new JButton("Importar digital");
         btnEscanearDigital.setBounds(11, 75, 257, 33);
+
+        JFrame ownerWindow = this;
         btnEscanearDigital.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    new ValidateFingerprint(txtNomeUsuario.getText(),mainWindow);
+                Progressbar progressbar = new Progressbar(true, ownerWindow);
+                 class Task extends Thread{
+                     boolean isDone = false;
+                    public void run(){
+                       while(!isDone){
+                           if(progressbar.operationStatus) {
+                               progressbar.display();
+                           }else{
+                               progressbar.dispose();
+                           }
+                           isDone = false;
+                       }
 
-                    if(ValidateFingerprint.isUserAllowed){
-                        jDialog.dispose();
                     }
+                }
+
+                Task task = new Task();
+
+                try {
+                    task.start();
+                    validateFingerprint = new ValidateFingerprint(txtNomeUsuario.getText(), ownerWindow);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
 
+                task.stop();
             }
         });
         contentPanel.add(btnEscanearDigital);
