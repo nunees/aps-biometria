@@ -4,6 +4,7 @@ import com.machinezoo.sourceafis.FingerprintImage;
 import com.machinezoo.sourceafis.FingerprintImageOptions;
 import com.machinezoo.sourceafis.FingerprintMatcher;
 import com.machinezoo.sourceafis.FingerprintTemplate;
+
 import utils.Progressbar;
 
 import javax.swing.*;
@@ -12,31 +13,68 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class ValidateFingerprint {
-    public static boolean isUserAllowed;
-    private String userPath;
+    public boolean isUserAllowed;
 
     public ValidateFingerprint(String username, JFrame owner) throws IOException {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.showSaveDialog(null);
+        class MyThread implements Runnable{
+            private boolean exit;
+            final Thread t;
 
-        userPath = fileChooser.getSelectedFile().toString();
+            final Progressbar progressbar;
+
+            MyThread(String threadName){
+                t = new Thread(this, threadName);
+                System.out.println("[DEBUG]: New thread spawned!");
+                exit = false;
+                progressbar = new Progressbar(true, owner);
+                t.start();
+            }
+
+            public void run(){
+                progressbar.display();
+            }
+
+            public void stop(){
+                progressbar.operationStatus = false;
+                progressbar.display();
+                exit = true;
+            }
+        }
+
 
         try{
-            if (isFingerprintPresent(userPath, owner)) {
-                System.out.print("Enter true loop");
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            fileChooser.showSaveDialog(null);
 
-                JOptionPane.showMessageDialog(null, "Digitais aceitas\nBem vindo " + username
-                        + "!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            String userPath = fileChooser.getSelectedFile().toString();
 
-                ValidateFingerprint.isUserAllowed = true;
-            } else {
-                System.out.print("enter false loop");
-                ValidateFingerprint.isUserAllowed = false;
 
-                JOptionPane.showMessageDialog(null, "Acesso não autorizado",
-                        "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
+            MyThread t1 = new MyThread("Progressbar Thread");
+            try {
+                if (isFingerprintPresent(userPath)) {
+                    t1.stop();
+                    JOptionPane.showMessageDialog(null, "Digitais aceitas\nBem vindo " + username
+                            + "!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                    isUserAllowed = true;
+                } else {
+                    t1.stop();
+
+                    isUserAllowed = false;
+
+                    JOptionPane.showMessageDialog(null, "Acesso não autorizado",
+                            "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
+                }
+            }catch (IllegalArgumentException iae){
+                t1.stop();
+                JOptionPane.showMessageDialog(null, "Formato inválido!\nUtilize arquivos no formato .png ou .tiff", "Erro", JOptionPane.ERROR_MESSAGE);
+            }catch (Exception e){
+                t1.stop();
+                e.printStackTrace();
             }
+
+
 
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage(),
@@ -44,7 +82,7 @@ public class ValidateFingerprint {
         }
     }
 
-    public boolean isFingerprintPresent(String userPath, JFrame owner) {
+    public boolean isFingerprintPresent(String userPath) {
         try {
             String fingerPrintsPath = "src/main/java/security/fingerprints/";
             FingerprintTemplate probe = new FingerprintTemplate(

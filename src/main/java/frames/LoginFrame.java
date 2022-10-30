@@ -12,15 +12,13 @@ import java.io.IOException;
 public class LoginFrame extends JFrame {
     protected JTextField txtNomeUsuario;
     public JButton btnEscanearDigital;
-    private JDialog jDialog;
-    private MainFrame mainFrame;
+    private final JDialog jDialog;
 
     private ValidateFingerprint validateFingerprint;
 
 
     public LoginFrame(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
-        jDialog = new JDialog(this.mainFrame,true);
+        jDialog = new JDialog(mainFrame,true);
         setUpComponents();
         jDialog.setLocationRelativeTo(mainFrame);
     }
@@ -54,37 +52,20 @@ public class LoginFrame extends JFrame {
         btnEscanearDigital = new JButton("Importar digital");
         btnEscanearDigital.setBounds(11, 75, 257, 33);
 
-        JFrame ownerWindow = this;
-        btnEscanearDigital.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Progressbar progressbar = new Progressbar(true, ownerWindow);
-                 class Task extends Thread{
-                     boolean isDone = false;
-                    public void run(){
-                       while(!isDone){
-                           if(progressbar.operationStatus) {
-                               progressbar.display();
-                           }else{
-                               progressbar.dispose();
-                           }
-                           isDone = false;
-                       }
-
-                    }
+        btnEscanearDigital.addActionListener(e -> {
+           Progressbar progressbar = new Progressbar(true, mainWindow);
+            try {
+                validateFingerprint = new ValidateFingerprint(txtNomeUsuario.getText(), mainWindow);
+                if(validateFingerprint.isUserAllowed){
+                    jDialog.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(null,"Não foi possivel autenticar\nO programa será encerrado", "Erro", JOptionPane.ERROR_MESSAGE);
+                    System.exit(0);
                 }
-
-                Task task = new Task();
-
-                try {
-                    task.start();
-                    validateFingerprint = new ValidateFingerprint(txtNomeUsuario.getText(), ownerWindow);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-                task.stop();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
+
         });
         contentPanel.add(btnEscanearDigital);
     }
