@@ -12,21 +12,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class ValidateFingerprint {
-    public boolean isUserAllowed;
+public class ValidarDigitais {
+    public boolean autenticado;
 
-    public ValidateFingerprint(String username, JFrame owner) throws IOException {
+    public ValidarDigitais(String username, JFrame janelaReferencia) throws IOException {
         class MyThread implements Runnable{
             private boolean exit;
             final Thread t;
 
             final Progressbar progressbar;
 
-            MyThread(String threadName){
-                t = new Thread(this, threadName);
+            MyThread(String nomeThread){
+                t = new Thread(this, nomeThread);
                 System.out.println("[DEBUG]: New thread spawned!");
                 exit = false;
-                progressbar = new Progressbar(true, owner);
+                progressbar = new Progressbar(true, janelaReferencia);
                 t.start();
             }
 
@@ -35,7 +35,7 @@ public class ValidateFingerprint {
             }
 
             public void stop(){
-                progressbar.operationStatus = false;
+                progressbar.statusDeOperacao = false;
                 progressbar.display();
                 exit = true;
             }
@@ -57,11 +57,11 @@ public class ValidateFingerprint {
                     JOptionPane.showMessageDialog(null, "Digitais aceitas\nBem vindo " + username
                             + "!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
-                    isUserAllowed = true;
+                    autenticado = true;
                 } else {
                     t1.stop();
 
-                    isUserAllowed = false;
+                    autenticado = false;
 
                     JOptionPane.showMessageDialog(null, "Acesso não autorizado",
                             "Erro de autenticação", JOptionPane.ERROR_MESSAGE);

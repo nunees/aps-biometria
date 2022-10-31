@@ -6,18 +6,18 @@ import java.awt.*;
 
 public class Progressbar {
 
-    private final JFrame ownerWindow;
+    private final JFrame janelaReferencia;
     private JDialog jProgressDialog;
-    public boolean operationStatus;
+    public boolean statusDeOperacao;
 
     public Progressbar(boolean status, JFrame owner){
-        this.operationStatus = status;
-        this.ownerWindow = owner;
+        this.statusDeOperacao = status;
+        this.janelaReferencia = owner;
     }
 
     public void display(){
         if(jProgressDialog == null){
-            jProgressDialog = new JDialog(ownerWindow, Dialog.ModalityType.APPLICATION_MODAL);
+            jProgressDialog = new JDialog(janelaReferencia, Dialog.ModalityType.APPLICATION_MODAL);
             jProgressDialog.setTitle("Autenticando usuário");
             jProgressDialog.setResizable(false);
             jProgressDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -45,11 +45,11 @@ public class Progressbar {
             contentPanel.add(progressBar);
 
             jProgressDialog.add(contentPanel);
-            jProgressDialog.setLocationRelativeTo(ownerWindow);
+            jProgressDialog.setLocationRelativeTo(janelaReferencia);
             jProgressDialog.pack();
         }
 
-        if(operationStatus){
+        if(statusDeOperacao){
             jProgressDialog.setVisible(true);
         }else{
             jProgressDialog.dispose();

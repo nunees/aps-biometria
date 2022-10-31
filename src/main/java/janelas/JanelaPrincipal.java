@@ -1,24 +1,29 @@
-package frames;
+package janelas;
+
+import app.Application;
+import dto.UsuarioDto;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MainFrame extends JFrame {
+public class JanelaPrincipal extends JFrame {
 
     private JLabel lblNomeUsuario;
     private JLabel lblNivelAcessoUsuario;
     private JLabel lblMsgNivelAcessoUser;
 
-    public MainFrame(){
+    private Application application;
+
+    public JanelaPrincipal(UsuarioDto usuarioDto){
         setTitle("Banco de dados - Ministério do Meio Ambiente");
         setBounds(100, 100, 450, 328);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
         setLocationRelativeTo(null);
         setResizable(false);
-        setPanel();
+        setPanel(usuarioDto);
         exibe(false);
     }
 
@@ -26,7 +31,7 @@ public class MainFrame extends JFrame {
         getContentPane().setVisible(op);
     }
 
-    protected void setPanel() {
+    protected void setPanel(UsuarioDto usuarioDto) {
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 
@@ -53,11 +58,11 @@ public class MainFrame extends JFrame {
         menuBar.add(sobreMenu);
 
 
-        JLabel lblNome = new JLabel("Nome:");
+        JLabel lblNome = new JLabel("Nome de usuário:");
         lblNome.setBounds(10, 35, 49, 16);
         getContentPane().add(lblNome);
 
-        lblNomeUsuario = new JLabel("");
+        lblNomeUsuario = new JLabel(usuarioDto.getNome());
         lblNomeUsuario.setFont(new Font("Dialog", Font.PLAIN, 12));
         lblNomeUsuario.setBounds(56, 35, 376, 16);
         getContentPane().add(lblNomeUsuario);
@@ -66,7 +71,7 @@ public class MainFrame extends JFrame {
         lblNivelAcesso.setBounds(10, 55, 101, 16);
         getContentPane().add(lblNivelAcesso);
 
-        lblNivelAcessoUsuario = new JLabel("");
+        lblNivelAcessoUsuario = new JLabel(Integer.toString(usuarioDto.getNivelDeAcesso()));
         lblNivelAcessoUsuario.setFont(new Font("Dialog", Font.PLAIN, 12));
         lblNivelAcessoUsuario.setBounds(110, 55, 55, 16);
         getContentPane().add(lblNivelAcessoUsuario);

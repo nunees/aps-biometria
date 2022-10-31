@@ -1,27 +1,34 @@
 package app;
 
-import frames.LoginFrame;
-import frames.MainFrame;
+import db.SQLiteJDBCDriverConnection;
+import dto.UsuarioDto;
+import janelas.JanelaLogin;
+import janelas.JanelaPrincipal;
 
 public class Application {
-    private String usuario;
-    protected Application application;
-    protected MainFrame mainFrame;
-
-    public static void main(String[] args) {
-        new Application();
-    }
+    protected JanelaPrincipal janelaPrincipal;
+    public static UsuarioDto usuario;
 
     public Application(){
-        mainFrame = new MainFrame();
-        mainFrame.setVisible(true);
+        usuario = new UsuarioDto();
+        //SQLiteJDBCDriverConnection.connect();
+        janelaPrincipal = new JanelaPrincipal(usuario);
+        janelaPrincipal.setVisible(true);
         //application = this;
-        LoginFrame loginGUI = new LoginFrame(mainFrame);
-        loginGUI.getJDialog().setVisible(true);
+        JanelaLogin janelaLogin = new JanelaLogin(janelaPrincipal);
+        janelaLogin.getJDialog().setVisible(true);
 
         // aguarda o o termino do login
-        while(loginGUI.getJDialog().isShowing()){}
+        while(janelaLogin.getJDialog().isShowing()){}
 
-        mainFrame.exibe(true);
+        janelaPrincipal.exibe(true);
+    }
+
+    public static void main(String[] args) {
+        Application application = new Application();
+    }
+
+    public static UsuarioDto usuarioDto(){
+        return Application.usuario;
     }
 }
