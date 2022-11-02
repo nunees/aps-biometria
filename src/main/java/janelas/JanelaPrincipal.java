@@ -43,18 +43,29 @@ public class JanelaPrincipal extends JFrame {
         menuBar.add(arquivoMenu);
         arquivoMenu.add(sairMenuItem);
 
-        JMenu editarMenu = new JMenu("Editar");
-        menuBar.add(editarMenu);
-
-        JMenu pesquisarMenu = new JMenu("Pesquisar");
-        JMenuItem pesquisarUsuario = new JMenuItem("Usuario");
-        JMenuItem pesquisardigitais = new JMenuItem("Digitais");
+        JMenu pesquisarMenu = new JMenu("Usuarios");
+        JMenuItem cadastrarUsuario = new JMenuItem("Cadastrar");
+        cadastrarUsuario.addActionListener(e -> {
+            JanelaCadastro janelaCadastro = new JanelaCadastro(this);
+            janelaCadastro.setVisible(true);
+        });
+        JMenuItem pesquisarUsuario = new JMenuItem("Listar");
+        pesquisarUsuario.addActionListener(e -> {
+            JanelaUsuarios janelaUsuarios = new JanelaUsuarios(this);
+            janelaUsuarios.setVisible(true);
+        });
         menuBar.add(pesquisarMenu);
         pesquisarMenu.add(pesquisarUsuario);
-        pesquisarMenu.add(pesquisardigitais);
+        pesquisarMenu.add(cadastrarUsuario);
 
-        JMenu sobreMenu = new JMenu("Sobre");
+        JMenu sobreMenu = new JMenu("Ajuda");
+        JMenuItem sobrePrograma = new JMenuItem("Sobre");
+        sobrePrograma.addActionListener(e -> {
+            JanelaSobre janelaSobre = new JanelaSobre(this);
+            janelaSobre.setVisible(true);
+        });
         menuBar.add(sobreMenu);
+        sobreMenu.add(sobrePrograma);
 
 
         JLabel lblNome = new JLabel("Nome:");
@@ -100,14 +111,43 @@ public class JanelaPrincipal extends JFrame {
 
         JButton btnProprietarios = new JButton("Proprietários");
         btnProprietarios.setBounds(13, 85, 130, 38);
+        btnProprietarios.addActionListener(e -> {
+            if(Application.usuarioDto().getNivelDeAcesso() >= 1){
+                JanelaProprietarios janelaProprietarios = new JanelaProprietarios(this);
+                janelaProprietarios.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(null,"Você não tem permissão de acesso!" +
+                        "\nContate um administrador", "Permissão Negada", JOptionPane.WARNING_MESSAGE);
+            }
+
+        });
         panel.add(btnProprietarios);
 
         JButton btnAgrotoxicos = new JButton("Agrotóxicos");
         btnAgrotoxicos.setBounds(156, 85, 130, 38);
+        btnAgrotoxicos.addActionListener(e -> {
+            if(Application.usuarioDto().getNivelDeAcesso() >= 2){
+                JanelaAgrotoxicos janelaAgrotoxicos = new JanelaAgrotoxicos(this);
+                janelaAgrotoxicos.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(null,"Você não tem permissão de acesso!" +
+                        "\nContate um administrador", "Permissão Negada", JOptionPane.WARNING_MESSAGE);
+            }
+
+        });
         panel.add(btnAgrotoxicos);
 
         JButton btnPropriedades = new JButton("Propriedades");
         btnPropriedades.setBounds(299, 85, 130, 38);
+        btnPropriedades.addActionListener(e -> {
+            if(Application.usuarioDto().getNivelDeAcesso() >= 3){
+                JanelaPropriedades janelaPropriedades = new JanelaPropriedades(this);
+                janelaPropriedades.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(null,"Você não tem permissão de acesso!" +
+                        "\nContate um administrador", "Permissão Negada", JOptionPane.WARNING_MESSAGE);
+            }
+        });
         panel.add(btnPropriedades);
 
         JLabel lblMsgNivelAcesso = new JLabel("Você tem permissão para acessar arquivos de nível");

@@ -98,13 +98,10 @@ public class ValidarDigitais {
             double score = new FingerprintMatcher(probe).match(candidate);
 
             return score >= 80;
-        } catch (NoSuchFileException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
 
-        }catch (IOException ioe){
-            ioe.printStackTrace();
-            throw new RuntimeException(ioe);
         }
     }
 }
