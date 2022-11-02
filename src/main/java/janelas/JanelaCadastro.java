@@ -2,6 +2,7 @@ package janelas;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class JanelaCadastro extends JFrame {
     private JanelaPrincipal janelaPrincipal;
@@ -13,9 +14,9 @@ public class JanelaCadastro extends JFrame {
         setComponents();
     }
 
-    public void setComponents(){
+    public void setComponents() {
         setLayout(null);
-        setLocationRelativeTo(janelaPrincipal);
+        setLocationRelativeTo(null);
         setTitle("Cadastro");
         setResizable(false);
         setSize(new Dimension(500,700));
@@ -96,21 +97,38 @@ public class JanelaCadastro extends JFrame {
         container.add(chAdmin);
 
         // Separator
-        JSeparator separator = new JSeparator();
-        separator.setBounds(0, 190, 500, 2);
-        container.add(separator);
+        JSeparator separatorOne = new JSeparator();
+        separatorOne.setBounds(0, 190, 500, 2);
+        container.add(separatorOne);
 
         JLabel lblArquivo = new JLabel();
-        lblArquivo.setText("Arquivo digital");
+        lblArquivo.setText("Digitais");
         lblArquivo.setForeground(new Color(0, 128, 0));
         lblArquivo.setFont(new Font("Dialog", Font.BOLD, 14));
         lblArquivo.setBounds(30,230,200,16);
         container.add(lblArquivo);
 
         JButton btnUpload = new JButton();
-        btnUpload.setText("IMPORTAR");
+        btnUpload.setText("Importar");
         btnUpload.setFont(new Font("Dialog", Font.BOLD, 14));
         btnUpload.setBounds(150,220,200,30);
         container.add(btnUpload);
+
+        JLabel imagePreview = new JLabel();
+        String imagePath = "src/main/java/images/Preview.png";
+        ImageIcon imageIcon = new ImageIcon(imagePath);
+        Image image = imageIcon.getImage();
+        Image novaImage = image.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(novaImage);
+        imagePreview.setIcon(imageIcon);
+        imagePreview.setBounds(180,280,200,200);
+        container.add(imagePreview);
+
+
+        JButton btnCadastrar = new JButton();
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setFont(new Font("Dialog", Font.BOLD, 14));
+        btnCadastrar.setBounds(150, 520, 200, 30);
+        container.add(btnCadastrar);
     }
 }
