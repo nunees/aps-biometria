@@ -10,6 +10,7 @@ import utils.Progressbar;
 import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 
 public class ValidarDigitais {
@@ -52,7 +53,7 @@ public class ValidarDigitais {
 
             MyThread t1 = new MyThread("Progressbar Thread");
             try {
-                if (isFingerprintPresent(userPath)) {
+                if (isFingerprintPresent(userPath, username)) {
                     t1.stop();
                     JOptionPane.showMessageDialog(null, "Digitais aceitas\nBem vindo " + username
                             + "!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -82,11 +83,11 @@ public class ValidarDigitais {
         }
     }
 
-    public boolean isFingerprintPresent(String userPath) {
+    public boolean isFingerprintPresent(String userPath, String systemPath) {
         try {
             String fingerPrintsPath = "src/main/java/security/fingerprints/";
             FingerprintTemplate probe = new FingerprintTemplate(
-                    new FingerprintImage(Files.readAllBytes(Paths.get(fingerPrintsPath + "finger.png"))
+                    new FingerprintImage(Files.readAllBytes(Paths.get(fingerPrintsPath + systemPath +".png"))
                             , new FingerprintImageOptions().dpi(500)));
 
             FingerprintTemplate candidate = new FingerprintTemplate(
@@ -97,10 +98,13 @@ public class ValidarDigitais {
             double score = new FingerprintMatcher(probe).match(candidate);
 
             return score >= 80;
-        } catch (IOException ioe) {
-            JOptionPane.showMessageDialog(null, "Não foi possivel encontrar o arquivo!",
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (NoSuchFileException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+            throw new RuntimeException(ioe);
         }
-        return false;
     }
 }

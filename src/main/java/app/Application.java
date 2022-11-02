@@ -5,26 +5,27 @@ import dto.UsuarioDto;
 import janelas.JanelaLogin;
 import janelas.JanelaPrincipal;
 
+import java.sql.SQLException;
+
 public class Application {
     protected JanelaPrincipal janelaPrincipal;
     public static UsuarioDto usuario;
 
-    public Application(){
+    public Application() throws SQLException {
+
         usuario = new UsuarioDto();
-        //SQLiteJDBCDriverConnection.connect();
         janelaPrincipal = new JanelaPrincipal(usuario);
         janelaPrincipal.setVisible(true);
-        //application = this;
         JanelaLogin janelaLogin = new JanelaLogin(janelaPrincipal);
         janelaLogin.getJDialog().setVisible(true);
 
-        // aguarda o o termino do login
         while(janelaLogin.getJDialog().isShowing()){}
 
         janelaPrincipal.exibe(true);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+        new SQLiteJDBCDriverConnection();
         Application application = new Application();
     }
 

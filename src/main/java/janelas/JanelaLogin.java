@@ -1,13 +1,20 @@
 package janelas;
 
 import app.Application;
+import db.JDBCExecutor;
+import db.SQLiteJDBCDriverConnection;
+import dto.UsuarioDto;
 import security.ValidarDigitais;
 import utils.Progressbar;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class JanelaLogin extends JFrame {
     protected JTextField txtNomeUsuario;
@@ -57,22 +64,50 @@ public class JanelaLogin extends JFrame {
 
         btnEscanearDigital.addActionListener(e -> {
            Progressbar progressbar = new Progressbar(true, mainWindow);
-           Application.usuarioDto().setNome(txtNomeUsuario.getText());
-           janelaPrincipal.setPanel(Application.usuario);
-            try {
-                validarDigitais = new ValidarDigitais(txtNomeUsuario.getText(), mainWindow);
-                if(validarDigitais.autenticado){
-                    jDialog.dispose();
+            UsuarioDto usuario = new UsuarioDto();
+            if(!txtNomeUsuario.getText().isEmpty()){
+                try {
+                    Connection connection = new SQLiteJDBCDriverConnection().getConnection();
+                    JDBCExecutor executor = new JDBCExecutor(connection);
+                    usuario = executor.findUsuario(txtNomeUsuario.getText());
+                    if(usuario == null){
+                        JOptionPane.showMessageDialog(null,"Usuario ou chave incorretos.\n" +
+                                "Em caso de erro contate o administrador do sistema." +
+                                "\nPor segurança o programa sera encerrado","Erro de autenticação", JOptionPane.INFORMATION_MESSAGE);
+                        jDialog.dispose();
+                    }
+                    if(usuario != null ){
+                        try {
+                            validarDigitais = new ValidarDigitais(txtNomeUsuario.getText(), mainWindow);
+                            if(validarDigitais.autenticado){
+                                Application.usuarioDto().setId(usuario.getId());
+                                Application.usuarioDto().setNome(usuario.getNome());
+                                Application.usuarioDto().setSobrenome(usuario.getSobrenome());
+                                Application.usuarioDto().setNomeDeUsuario(usuario.getNomeDeUsuario());
+                                Application.usuarioDto().setCaminhoArquivoDeDigital(usuario.getCaminhoArquivoDeDigital());
+                                Application.usuarioDto().setNivelDeAcesso(usuario.getNivelDeAcesso());
+                                Application.usuarioDto().setAdmin(usuario.getAdmin());
+                                janelaPrincipal.setPanel(Application.usuario);
+                                jDialog.dispose();
 
-                }else{
-                    JOptionPane.showMessageDialog(null,"Não foi possivel autenticar\nO programa será encerrado", "Erro", JOptionPane.ERROR_MESSAGE);
-                    System.exit(0);
+                            }else{
+                                JOptionPane.showMessageDialog(null,"Não foi possivel autenticar\nO programa será encerrado", "Erro", JOptionPane.ERROR_MESSAGE);
+                                System.exit(0);
+                            }
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+            }else{
+                JOptionPane.showMessageDialog(null,"O nome de usuário nao pode ficar em branco", "Erro", JOptionPane.INFORMATION_MESSAGE);
             }
 
         });
+
         contentPanel.add(btnEscanearDigital);
     }
     public JDialog getJDialog(){

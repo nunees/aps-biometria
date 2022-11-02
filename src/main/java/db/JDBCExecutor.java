@@ -8,7 +8,7 @@ public class JDBCExecutor {
     protected final Connection connection;
     protected final SQLiteJDBCDriverConnection sqLiteJDBCDriverConnection;
 
-    private static final String GET_ONE_USER = "SELECT nome, sobrenome, username, caminhoArquivoDeDigital, nivelAcesso, " +
+    private static final String GET_ONE_USER = "SELECT id, nome, sobrenome, username, caminhoArquivoDeDigital, nivelAcesso, " +
             "isAdmin FROM usuarios WHERE username = ?";
 
     private static final String CREATE_USER = "INSERT INTO usuarios (nome, sobrenome, username, caminhoArquivoDeDigital," +
@@ -18,7 +18,7 @@ public class JDBCExecutor {
 
     public JDBCExecutor(Connection connection) throws SQLException {
         this.connection = connection;
-        sqLiteJDBCDriverConnection = new SQLiteJDBCDriverConnection("sqlite","database");
+        sqLiteJDBCDriverConnection = new SQLiteJDBCDriverConnection();
     }
 
     public UsuarioDto findUsuario(String username){
@@ -27,7 +27,7 @@ public class JDBCExecutor {
             statement.setString(1,username);
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
-                usuario.setId(rs.getLong("id"));
+                usuario.setId(rs.getInt("id"));
                 usuario.setNome(rs.getString("nome"));
                 usuario.setSobrenome(rs.getString("sobrenome"));
                 usuario.setNomeDeUsuario(rs.getString("username"));

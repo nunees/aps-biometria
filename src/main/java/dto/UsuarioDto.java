@@ -1,7 +1,7 @@
 package dto;
 
 public class UsuarioDto {
-    private Long id;
+    private int id;
     private String nome;
     private String sobrenome;
 
@@ -11,11 +11,11 @@ public class UsuarioDto {
     private int nivelDeAcesso;
     private boolean isAdmin;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -67,4 +67,16 @@ public class UsuarioDto {
         isAdmin = admin;
     }
 
+    @Override
+    public String toString() {
+        return "UsuarioDto{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                ", nomeDeUsuario='" + nomeDeUsuario + '\'' +
+                ", caminhoArquivoDeDigital='" + caminhoArquivoDeDigital + '\'' +
+                ", nivelDeAcesso=" + nivelDeAcesso +
+                ", isAdmin=" + isAdmin +
+                '}';
+    }
 }
