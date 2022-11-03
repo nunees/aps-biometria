@@ -1,5 +1,6 @@
 package security;
 
+import app.Application;
 import com.machinezoo.sourceafis.FingerprintImage;
 import com.machinezoo.sourceafis.FingerprintImageOptions;
 import com.machinezoo.sourceafis.FingerprintMatcher;
@@ -85,9 +86,12 @@ public class ValidarDigitais {
 
     public boolean isFingerprintPresent(String userPath, String systemPath) {
         try {
-            String fingerPrintsPath = "src/main/java/security/fingerprints/";
+            //String fingerPrintsPath = "src/main/java/security/fingerprints/";
+            String fingerPrintsPath = Application.usuarioDto().getCaminhoArquivoDeDigital();
+            System.out.println(fingerPrintsPath);
             FingerprintTemplate probe = new FingerprintTemplate(
-                    new FingerprintImage(Files.readAllBytes(Paths.get(fingerPrintsPath + systemPath +".png"))
+                    //new FingerprintImage(Files.readAllBytes(Paths.get(fingerPrintsPath + systemPath +".png"))
+                    new FingerprintImage(Files.readAllBytes(Paths.get(fingerPrintsPath))
                             , new FingerprintImageOptions().dpi(500)));
 
             FingerprintTemplate candidate = new FingerprintTemplate(

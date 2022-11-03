@@ -1,6 +1,9 @@
 package db;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -56,10 +59,8 @@ public class SQLiteJDBCDriverConnection {
             "pais VARCHAR NOT NULL," +
             "created_at DATETIME DEFAULT CURRENT_TIMESTAMP)";
 
-
-
     public SQLiteJDBCDriverConnection() throws SQLException {
-        this.url = "jdbc:" + host + ":" + database + ".db";
+        this.url = "jdbc:" + host + ":" +  database + ".db";
         this.CreateDatabase();
     }
 

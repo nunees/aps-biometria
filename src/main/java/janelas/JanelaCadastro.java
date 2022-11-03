@@ -24,6 +24,7 @@ public class JanelaCadastro extends JFrame {
     private JLabel imagePreview;
 
     private BufferedImage image;
+    private Image novaImage;
 
     private final String fingerPrintsPath = "src/main/java/security/fingerprints/";
 
@@ -38,7 +39,7 @@ public class JanelaCadastro extends JFrame {
         setTitle("Cadastro");
         setResizable(false);
         setSize(new Dimension(500,700));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         container = new JPanel();
         container.setLayout(null);
@@ -145,21 +146,15 @@ public class JanelaCadastro extends JFrame {
 
                     image = ImageIO.read(new File(path));
                     imageIcon.setImage(image);
-                    imagePreview.setBounds(180,280,200,200);
+                    novaImage.getScaledInstance(400,300,Image.SCALE_SMOOTH);
+                    imagePreview.setBounds(50,280,400,300);
                     imagePreview.revalidate();
                     imagePreview.repaint();
 
-//                    try{
-//                        ImageIO.write(image, "png",new File(fingerPrintsPath + txtNomeUsuario.getText() + ".png"));
-//                    }catch (IOException ioe){
-//                        ioe.printStackTrace();
-//                        throw new RuntimeException(ioe);
-//                    }
-                }else{
-                    JOptionPane.showMessageDialog(null,"Voce deve escolher um arquivo", "Aviso",JOptionPane.INFORMATION_MESSAGE);
                 }
             }catch (Exception ie){
-                JOptionPane.showMessageDialog(null,ie.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                ie.printStackTrace();
+                throw new RuntimeException(ie);
             }
         });
         container.add(btnUpload);
@@ -168,17 +163,17 @@ public class JanelaCadastro extends JFrame {
         String imagePath = "src/main/java/images/Preview.png";
         imageIcon = new ImageIcon(imagePath);
         Image image = imageIcon.getImage();
-        Image novaImage = image.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        novaImage = image.getScaledInstance(400, 300, Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(novaImage);
         imagePreview.setIcon(imageIcon);
-        imagePreview.setBounds(180,280,200,200);
+        imagePreview.setBounds(50,280,400,300);
         container.add(imagePreview);
 
 
         JButton btnCadastrar = new JButton();
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.setFont(new Font("Dialog", Font.BOLD, 14));
-        btnCadastrar.setBounds(150, 520, 200, 30);
+        btnCadastrar.setBounds(150, 600, 200, 30);
         btnCadastrar.addActionListener(e -> {
             String filePath = fingerPrintsPath + txtNomeUsuario.getText() + ".png";
             try{

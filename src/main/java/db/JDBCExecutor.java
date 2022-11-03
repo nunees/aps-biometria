@@ -2,6 +2,7 @@ package db;
 
 import dto.UsuarioDto;
 
+import java.io.IOException;
 import java.sql.*;
 
 public class JDBCExecutor {
@@ -16,7 +17,7 @@ public class JDBCExecutor {
 
     private static final String DELETE_USER = "DELETE FROM usuarios WHERE username = ?";
 
-    public JDBCExecutor(Connection connection) throws SQLException {
+    public JDBCExecutor(Connection connection) throws SQLException{
         this.connection = connection;
         sqLiteJDBCDriverConnection = new SQLiteJDBCDriverConnection();
     }

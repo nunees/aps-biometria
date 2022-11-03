@@ -15,6 +15,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class JanelaLogin extends JFrame {
     protected JTextField txtNomeUsuario;
@@ -70,23 +71,23 @@ public class JanelaLogin extends JFrame {
                     Connection connection = new SQLiteJDBCDriverConnection().getConnection();
                     JDBCExecutor executor = new JDBCExecutor(connection);
                     usuario = executor.findUsuario(txtNomeUsuario.getText());
-                    if(usuario == null){
+                    if(!Objects.equals(usuario.getNomeDeUsuario(), txtNomeUsuario.getText())){
                         JOptionPane.showMessageDialog(null,"Usuario ou chave incorretos.\n" +
                                 "Em caso de erro contate o administrador do sistema." +
-                                "\nPor segurança o programa sera encerrado","Erro de autenticação", JOptionPane.INFORMATION_MESSAGE);
-                        jDialog.dispose();
+                                "\nPor segurança o programa sera encerrado","Erro de autenticação", JOptionPane.ERROR_MESSAGE);
+                        System.exit(0);
                     }
                     if(usuario != null ){
                         try {
+                            Application.usuarioDto().setId(usuario.getId());
+                            Application.usuarioDto().setNome(usuario.getNome());
+                            Application.usuarioDto().setSobrenome(usuario.getSobrenome());
+                            Application.usuarioDto().setNomeDeUsuario(usuario.getNomeDeUsuario());
+                            Application.usuarioDto().setCaminhoArquivoDeDigital(usuario.getCaminhoArquivoDeDigital());
+                            Application.usuarioDto().setNivelDeAcesso(usuario.getNivelDeAcesso());
+                            Application.usuarioDto().setAdmin(usuario.getAdmin());
                             validarDigitais = new ValidarDigitais(txtNomeUsuario.getText(), mainWindow);
                             if(validarDigitais.autenticado){
-                                Application.usuarioDto().setId(usuario.getId());
-                                Application.usuarioDto().setNome(usuario.getNome());
-                                Application.usuarioDto().setSobrenome(usuario.getSobrenome());
-                                Application.usuarioDto().setNomeDeUsuario(usuario.getNomeDeUsuario());
-                                Application.usuarioDto().setCaminhoArquivoDeDigital(usuario.getCaminhoArquivoDeDigital());
-                                Application.usuarioDto().setNivelDeAcesso(usuario.getNivelDeAcesso());
-                                Application.usuarioDto().setAdmin(usuario.getAdmin());
                                 janelaPrincipal.setPanel(Application.usuario);
                                 jDialog.dispose();
 
