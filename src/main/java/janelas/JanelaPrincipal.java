@@ -86,6 +86,8 @@ public class JanelaPrincipal extends JFrame {
         lblNivelAcessoUsuario.setFont(new Font("Dialog", Font.PLAIN, 12));
         lblNivelAcessoUsuario.setBounds(110, 25, 100, 16);
         lblNivelAcessoUsuario.setText(Integer.toString(Application.usuarioDto().getNivelDeAcesso()));
+        lblNivelAcessoUsuario.revalidate();
+        lblNivelAcessoUsuario.repaint();
         getContentPane().add(lblNivelAcessoUsuario);
 
 
@@ -155,10 +157,9 @@ public class JanelaPrincipal extends JFrame {
         panel.add(lblMsgNivelAcesso);
         lblMsgNivelAcesso.setForeground(new Color(0, 128, 0));
 
-        lblMsgNivelAcessoUser = new JLabel();
+        lblMsgNivelAcessoUser = new JLabel(Integer.toString(Application.usuarioDto().getNivelDeAcesso()));
         lblMsgNivelAcessoUser.setForeground(new Color(0, 128, 0));
         lblMsgNivelAcessoUser.setBounds(310, 7, 100, 16);
-        lblMsgNivelAcessoUser.setText(Integer.toString(Application.usuarioDto().getNivelDeAcesso()));
         panel.add(lblMsgNivelAcessoUser);
 
 

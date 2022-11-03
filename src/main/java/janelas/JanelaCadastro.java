@@ -1,13 +1,31 @@
 package janelas;
 
+import db.JDBCExecutor;
+import db.SQLiteJDBCDriverConnection;
+import dto.UsuarioDto;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class JanelaCadastro extends JFrame {
     private JanelaPrincipal janelaPrincipal;
 
     private JPanel container;
+    private ImageIcon imageIcon;
+    private JLabel imagePreview;
+
+    private BufferedImage image;
+
+    private final String fingerPrintsPath = "src/main/java/security/fingerprints/";
 
     public JanelaCadastro(JanelaPrincipal janelaPrincipal){
         this.janelaPrincipal = janelaPrincipal;
@@ -16,7 +34,7 @@ public class JanelaCadastro extends JFrame {
 
     public void setComponents() {
         setLayout(null);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(janelaPrincipal);
         setTitle("Cadastro");
         setResizable(false);
         setSize(new Dimension(500,700));
@@ -112,11 +130,43 @@ public class JanelaCadastro extends JFrame {
         btnUpload.setText("Importar");
         btnUpload.setFont(new Font("Dialog", Font.BOLD, 14));
         btnUpload.setBounds(150,220,200,30);
+        btnUpload.addActionListener(e -> {
+            try {
+                JFileChooser jFileChooser = new JFileChooser();
+                jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                FileNameExtensionFilter restrict = new FileNameExtensionFilter("Apenas arquivos .png", "png");
+                jFileChooser.addChoosableFileFilter(restrict);
+                jFileChooser.setAcceptAllFileFilterUsed(false);
+
+                int status = jFileChooser.showOpenDialog(null);
+                String path = jFileChooser.getSelectedFile().getAbsolutePath();
+
+                if (status == JFileChooser.APPROVE_OPTION) {
+
+                    image = ImageIO.read(new File(path));
+                    imageIcon.setImage(image);
+                    imagePreview.setBounds(180,280,200,200);
+                    imagePreview.revalidate();
+                    imagePreview.repaint();
+
+//                    try{
+//                        ImageIO.write(image, "png",new File(fingerPrintsPath + txtNomeUsuario.getText() + ".png"));
+//                    }catch (IOException ioe){
+//                        ioe.printStackTrace();
+//                        throw new RuntimeException(ioe);
+//                    }
+                }else{
+                    JOptionPane.showMessageDialog(null,"Voce deve escolher um arquivo", "Aviso",JOptionPane.INFORMATION_MESSAGE);
+                }
+            }catch (Exception ie){
+                JOptionPane.showMessageDialog(null,ie.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        });
         container.add(btnUpload);
 
-        JLabel imagePreview = new JLabel();
+        imagePreview = new JLabel();
         String imagePath = "src/main/java/images/Preview.png";
-        ImageIcon imageIcon = new ImageIcon(imagePath);
+        imageIcon = new ImageIcon(imagePath);
         Image image = imageIcon.getImage();
         Image novaImage = image.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(novaImage);
@@ -129,6 +179,42 @@ public class JanelaCadastro extends JFrame {
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.setFont(new Font("Dialog", Font.BOLD, 14));
         btnCadastrar.setBounds(150, 520, 200, 30);
+        btnCadastrar.addActionListener(e -> {
+            String filePath = fingerPrintsPath + txtNomeUsuario.getText() + ".png";
+            try{
+                Connection connection = new SQLiteJDBCDriverConnection().getConnection();
+                JDBCExecutor executor = new JDBCExecutor(connection);
+                UsuarioDto usuario = new UsuarioDto();
+                usuario = executor.findUsuario(txtNomeUsuario.getText());
+                if(!Objects.equals(usuario.getNomeDeUsuario(), txtNomeUsuario.getText())){
+                    UsuarioDto usuarioDto = new UsuarioDto();
+                    usuarioDto.setNome(txtNome.getText());
+                    usuarioDto.setSobrenome(txtSobreNome.getText());
+                    usuarioDto.setNomeDeUsuario(txtNomeUsuario.getText());
+                    usuarioDto.setCaminhoArquivoDeDigital(filePath);
+                    usuarioDto.setNivelDeAcesso(Integer.parseInt(chAcesso.getSelectedItem()));
+                    usuarioDto.setAdmin(Boolean.parseBoolean(chAdmin.getSelectedItem()));
+                    usuario = executor.create(usuarioDto);
+                    try{
+                        ImageIO.write(this.image, "png",new File(filePath));
+                    }catch (IOException ioe){
+                        ioe.printStackTrace();
+                        throw new RuntimeException(ioe);
+                    }
+
+                    JOptionPane.showMessageDialog(null,"Usuario criado com sucesso","Criado",JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(null,"Usuario ja existe","Erro",JOptionPane.INFORMATION_MESSAGE);
+                }
+            }catch (SQLException sqlException){
+                sqlException.printStackTrace();
+                throw new RuntimeException(sqlException);
+            }
+
+
+
+        });
         container.add(btnCadastrar);
     }
 }
