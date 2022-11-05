@@ -9,6 +9,7 @@ import com.machinezoo.sourceafis.FingerprintTemplate;
 import utils.Progressbar;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -47,36 +48,39 @@ public class ValidarDigitais {
         try{
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            fileChooser.showSaveDialog(null);
+            FileNameExtensionFilter restrict = new FileNameExtensionFilter("Apenas arquivos .png", "png");
+            fileChooser.addChoosableFileFilter(restrict);
+            fileChooser.setAcceptAllFileFilterUsed(false);
 
+            int status = fileChooser.showOpenDialog(null);
             String userPath = fileChooser.getSelectedFile().toString();
 
 
             MyThread t1 = new MyThread("Progressbar Thread");
-            try {
-                if (isFingerprintPresent(userPath, username)) {
+            if(status == JFileChooser.APPROVE_OPTION){
+                try {
+                    if (isFingerprintPresent(userPath, username)) {
+                        t1.stop();
+                        JOptionPane.showMessageDialog(null, "Digitais aceitas\nBem vindo " + username
+                                + "!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                        autenticado = true;
+                    } else {
+                        t1.stop();
+
+                        autenticado = false;
+
+                        JOptionPane.showMessageDialog(null, "Acesso não autorizado",
+                                "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
+                    }
+                }catch (IllegalArgumentException iae){
                     t1.stop();
-                    JOptionPane.showMessageDialog(null, "Digitais aceitas\nBem vindo " + username
-                            + "!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-                    autenticado = true;
-                } else {
+                    JOptionPane.showMessageDialog(null, "Formato inválido!\nUtilize arquivos no formato .png ou .tiff", "Erro", JOptionPane.ERROR_MESSAGE);
+                }catch (Exception e){
                     t1.stop();
-
-                    autenticado = false;
-
-                    JOptionPane.showMessageDialog(null, "Acesso não autorizado",
-                            "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
+                    e.printStackTrace();
                 }
-            }catch (IllegalArgumentException iae){
-                t1.stop();
-                JOptionPane.showMessageDialog(null, "Formato inválido!\nUtilize arquivos no formato .png ou .tiff", "Erro", JOptionPane.ERROR_MESSAGE);
-            }catch (Exception e){
-                t1.stop();
-                e.printStackTrace();
             }
-
-
 
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage(),
@@ -86,7 +90,6 @@ public class ValidarDigitais {
 
     public boolean isFingerprintPresent(String userPath, String systemPath) {
         try {
-            //String fingerPrintsPath = "src/main/java/security/fingerprints/";
             String fingerPrintsPath = Application.usuarioDto().getCaminhoArquivoDeDigital();
             System.out.println(fingerPrintsPath);
             FingerprintTemplate probe = new FingerprintTemplate(

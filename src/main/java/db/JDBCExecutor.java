@@ -4,18 +4,22 @@ import dto.UsuarioDto;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JDBCExecutor {
     protected final Connection connection;
     protected final SQLiteJDBCDriverConnection sqLiteJDBCDriverConnection;
 
     private static final String GET_ONE_USER = "SELECT id, nome, sobrenome, username, caminhoArquivoDeDigital, nivelAcesso, " +
-            "isAdmin FROM usuarios WHERE username = ?";
+            "isAdmin, created_at FROM usuarios WHERE username = ?";
 
     private static final String CREATE_USER = "INSERT INTO usuarios (nome, sobrenome, username, caminhoArquivoDeDigital," +
             " nivelAcesso, isAdmin) VALUES (?,?,?,?,?,?)";
 
     private static final String DELETE_USER = "DELETE FROM usuarios WHERE username = ?";
+
+    private static final String GET_ALL_USERNAMES = "SELECT username FROM usuarios";
 
     public JDBCExecutor(Connection connection) throws SQLException{
         this.connection = connection;
@@ -35,6 +39,7 @@ public class JDBCExecutor {
                 usuario.setCaminhoArquivoDeDigital(rs.getString("caminhoArquivoDeDigital"));
                 usuario.setNivelDeAcesso(rs.getInt("nivelAcesso"));
                 usuario.setAdmin(rs.getBoolean("isAdmin"));
+                usuario.setCreated_at(rs.getDate("created_at"));
             }
         }catch (SQLException e){
             e.printStackTrace();
@@ -57,6 +62,21 @@ public class JDBCExecutor {
             throw new RuntimeException(e);
         }
     }
+
+    public List<String> getAllUsernames(){
+        List<String> usernames = new ArrayList<String>();
+        try(PreparedStatement statement = this.connection.prepareStatement(GET_ALL_USERNAMES)){
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                usernames.add(rs.getString("username"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return usernames;
+    }
+
 
     public void delete(String username){
         try(PreparedStatement statement = this.connection.prepareStatement(DELETE_USER)){

@@ -3,10 +3,13 @@ package janelas;
 import app.Application;
 import dto.UsuarioDto;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class JanelaPrincipal extends JFrame {
 
@@ -16,7 +19,10 @@ public class JanelaPrincipal extends JFrame {
 
     private Application application;
 
-    public JanelaPrincipal(UsuarioDto usuarioDto){
+    public JanelaPrincipal(UsuarioDto usuarioDto) throws IOException {
+        Image logoImage = ImageIO.read(Objects.requireNonNull(JanelaPrincipal.class.getClassLoader().getResource("images/logo.png")));
+        logoImage.getScaledInstance(64,64,0);
+        setIconImage(logoImage);
         setTitle("Banco de dados - Ministério do Meio Ambiente");
         setBounds(100, 100, 500, 328);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

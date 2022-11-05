@@ -18,12 +18,13 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class JanelaLogin extends JFrame {
+    private JanelaPrincipal janelaPrincipal;
+
+    private Application application;
+
     protected JTextField txtNomeUsuario;
     public JButton btnEscanearDigital;
     private final JDialog jDialog;
-
-    private JanelaPrincipal janelaPrincipal;
-    private Application application;
 
     private ValidarDigitais validarDigitais;
 
@@ -60,7 +61,7 @@ public class JanelaLogin extends JFrame {
         contentPanel.add(txtNomeUsuario);
         txtNomeUsuario.setColumns(10);
 
-        btnEscanearDigital = new JButton("Importar digital");
+        btnEscanearDigital = new JButton("IMPORTAR DIGITAL SALVA");
         btnEscanearDigital.setBounds(11, 75, 257, 33);
 
         btnEscanearDigital.addActionListener(e -> {
@@ -88,7 +89,7 @@ public class JanelaLogin extends JFrame {
                             Application.usuarioDto().setAdmin(usuario.getAdmin());
                             validarDigitais = new ValidarDigitais(txtNomeUsuario.getText(), mainWindow);
                             if(validarDigitais.autenticado){
-                                janelaPrincipal.setPanel(Application.usuario);
+                                this.janelaPrincipal.setPanel(Application.usuario);
                                 jDialog.dispose();
 
                             }else{

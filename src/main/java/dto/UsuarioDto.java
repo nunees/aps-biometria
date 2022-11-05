@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.Date;
+
 public class UsuarioDto {
     private int id;
     private String nome;
@@ -10,6 +12,8 @@ public class UsuarioDto {
     private String caminhoArquivoDeDigital;
     private int nivelDeAcesso;
     private boolean isAdmin;
+
+    private Date created_at;
 
     public int getId() {
         return id;
@@ -67,6 +71,14 @@ public class UsuarioDto {
         isAdmin = admin;
     }
 
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
     @Override
     public String toString() {
         return "UsuarioDto{" +
@@ -77,6 +89,7 @@ public class UsuarioDto {
                 ", caminhoArquivoDeDigital='" + caminhoArquivoDeDigital + '\'' +
                 ", nivelDeAcesso=" + nivelDeAcesso +
                 ", isAdmin=" + isAdmin +
+                ", created_at= " + created_at +
                 '}';
     }
 }

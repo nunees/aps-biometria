@@ -160,8 +160,8 @@ public class JanelaCadastro extends JFrame {
         container.add(btnUpload);
 
         imagePreview = new JLabel();
-        String imagePath = "src/main/java/images/Preview.png";
-        imageIcon = new ImageIcon(imagePath);
+        //String imagePath = "src/main/java/images/Preview.png";
+        imageIcon = new ImageIcon(Objects.requireNonNull(JanelaPrincipal.class.getClassLoader().getResource("images/preview.png")));
         Image image = imageIcon.getImage();
         novaImage = image.getScaledInstance(400, 300, Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(novaImage);
