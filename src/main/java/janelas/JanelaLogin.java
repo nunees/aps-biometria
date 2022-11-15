@@ -1,21 +1,23 @@
 package janelas;
 
 import app.Application;
-import db.JDBCExecutor;
-import db.SQLiteJDBCDriverConnection;
+import db.DatabaseQueryExecutor;
+import db.DatabaseConnectionDriver;
 import dto.UsuarioDto;
 import security.ValidarDigitais;
+import utils.Log;
 import utils.Progressbar;
+import utils.TipoLog;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.Objects;
 
 public class JanelaLogin extends JFrame {
@@ -65,15 +67,18 @@ public class JanelaLogin extends JFrame {
         btnEscanearDigital = new JButton("IMPORTAR DIGITAL SALVA");
         btnEscanearDigital.setBounds(11, 75, 257, 33);
 
+
         btnEscanearDigital.addActionListener(e -> {
            Progressbar progressbar = new Progressbar(true, mainWindow);
             UsuarioDto usuario = new UsuarioDto();
             if(!txtNomeUsuario.getText().isEmpty()){
                 try {
-                    Connection connection = new SQLiteJDBCDriverConnection().getConnection();
-                    JDBCExecutor executor = new JDBCExecutor(connection);
+                    Connection connection = new DatabaseConnectionDriver().getConnection();
+                    DatabaseQueryExecutor executor = new DatabaseQueryExecutor(connection);
+                    Log.print(TipoLog.INFO, "Requisicao de banco por: " + txtNomeUsuario.getText());
                     usuario = executor.findUsuario(txtNomeUsuario.getText());
                     if(!Objects.equals(usuario.getNomeDeUsuario(), txtNomeUsuario.getText())){
+                        Log.print(TipoLog.ERRO, "Acesso negado para: " + txtNomeUsuario.getText());
                         JOptionPane.showMessageDialog(null,"Usuario ou chave incorretos.\n" +
                                 "Em caso de erro contate o administrador do sistema." +
                                 "\nPor segurança o programa sera encerrado","Erro de autenticação", JOptionPane.ERROR_MESSAGE);
@@ -93,6 +98,7 @@ public class JanelaLogin extends JFrame {
                             if(validarDigitais.autenticado){
                                 this.janelaPrincipal.setPanel(Application.usuario);
                                 jDialog.dispose();
+                                Log.print(TipoLog.INFO, "Usuario: " + txtNomeUsuario.getText() + " autenticado com sucesso");
 
                             }else{
                                 JOptionPane.showMessageDialog(null,"Não foi possivel autenticar\nO programa será encerrado", "Erro", JOptionPane.ERROR_MESSAGE);

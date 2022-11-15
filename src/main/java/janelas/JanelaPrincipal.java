@@ -2,10 +2,14 @@ package janelas;
 
 import app.Application;
 import dto.UsuarioDto;
+import utils.Log;
+import utils.TipoLog;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,12 +18,17 @@ import java.util.Objects;
 public class JanelaPrincipal extends JFrame {
     private JLabel lblNomeUsuario;
     private JLabel lblMsgNivelAcessoUser;
-    private Application application;
 
-    public JanelaPrincipal(UsuarioDto usuarioDto) throws IOException {
-        Image logoImage = ImageIO.read(Objects.requireNonNull(JanelaPrincipal.class.getClassLoader().getResource("images/logo.png")));
-        logoImage.getScaledInstance(64,64,0);
-        setIconImage(logoImage);
+    public JanelaPrincipal() {
+        try {
+            Image logoImage = ImageIO.read(Objects.requireNonNull(JanelaPrincipal.class.getClassLoader().getResource("images/logo.png")));
+            logoImage.getScaledInstance(64, 64, 0);
+            setIconImage(logoImage);
+        }catch (IOException | NullPointerException ioe){
+            Log.print(TipoLog.ERRO, ioe.toString());
+            throw new RuntimeException(ioe);
+        }
+
         setTitle("Banco de dados - Ministério do Meio Ambiente");
         setBounds(100, 100, 500, 328);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

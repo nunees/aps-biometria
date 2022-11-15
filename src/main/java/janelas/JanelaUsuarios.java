@@ -1,7 +1,7 @@
 package janelas;
 
-import db.JDBCExecutor;
-import db.SQLiteJDBCDriverConnection;
+import db.DatabaseQueryExecutor;
+import db.DatabaseConnectionDriver;
 import dto.UsuarioDto;
 
 import java.awt.Choice;
@@ -13,7 +13,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -67,8 +66,8 @@ public class JanelaUsuarios extends JFrame{
         Choice ch = new Choice();
         ch.setBounds(100,50, 300, 16);
         try{
-            Connection connection = new SQLiteJDBCDriverConnection().getConnection();
-            JDBCExecutor executor = new JDBCExecutor(connection);
+            Connection connection = new DatabaseConnectionDriver().getConnection();
+            DatabaseQueryExecutor executor = new DatabaseQueryExecutor(connection);
             usuarios = executor.getAllUsernames();
             if(usuarios == null){
                 JOptionPane.showMessageDialog(null,"Não foi encontrado nenhum usuario na base.\n" +
@@ -86,8 +85,8 @@ public class JanelaUsuarios extends JFrame{
             @Override
             public void itemStateChanged(ItemEvent e) {
                 try{
-                    Connection connection = new SQLiteJDBCDriverConnection().getConnection();
-                    JDBCExecutor executor = new JDBCExecutor(connection);
+                    Connection connection = new DatabaseConnectionDriver().getConnection();
+                    DatabaseQueryExecutor executor = new DatabaseQueryExecutor(connection);
                     String username = e.getItem().toString();
                     if(!Objects.equals(username, "")){
                         UsuarioDto usuario = executor.findUsuario(username);

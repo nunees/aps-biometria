@@ -1,7 +1,7 @@
 package janelas;
 
-import db.JDBCExecutor;
-import db.SQLiteJDBCDriverConnection;
+import db.DatabaseQueryExecutor;
+import db.DatabaseConnectionDriver;
 import dto.UsuarioDto;
 
 import javax.imageio.ImageIO;
@@ -9,7 +9,6 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -177,8 +176,8 @@ public class JanelaCadastro extends JFrame {
         btnCadastrar.addActionListener(e -> {
             String filePath = fingerPrintsPath + txtNomeUsuario.getText() + ".png";
             try{
-                Connection connection = new SQLiteJDBCDriverConnection().getConnection();
-                JDBCExecutor executor = new JDBCExecutor(connection);
+                Connection connection = new DatabaseConnectionDriver().getConnection();
+                DatabaseQueryExecutor executor = new DatabaseQueryExecutor(connection);
                 UsuarioDto usuario = new UsuarioDto();
                 usuario = executor.findUsuario(txtNomeUsuario.getText());
                 if(!Objects.equals(usuario.getNomeDeUsuario(), txtNomeUsuario.getText())){
