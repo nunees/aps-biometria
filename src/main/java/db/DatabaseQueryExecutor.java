@@ -2,14 +2,13 @@ package db;
 
 import dto.UsuarioDto;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JDBCExecutor {
+public class DatabaseQueryExecutor {
     protected final Connection connection;
-    protected final SQLiteJDBCDriverConnection sqLiteJDBCDriverConnection;
+    protected final DatabaseConnectionDriver databaseConnectionDriver;
 
     private static final String GET_ONE_USER = "SELECT id, nome, sobrenome, username, caminhoArquivoDeDigital, nivelAcesso, " +
             "isAdmin, created_at FROM usuarios WHERE username = ?";
@@ -21,9 +20,9 @@ public class JDBCExecutor {
 
     private static final String GET_ALL_USERNAMES = "SELECT username FROM usuarios";
 
-    public JDBCExecutor(Connection connection) throws SQLException{
+    public DatabaseQueryExecutor(Connection connection) throws SQLException{
         this.connection = connection;
-        sqLiteJDBCDriverConnection = new SQLiteJDBCDriverConnection();
+        databaseConnectionDriver = new DatabaseConnectionDriver();
     }
 
     public UsuarioDto findUsuario(String username){
