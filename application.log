@@ -5,3 +5,14 @@
 15/11/2022 01:22:01 [INFO]: Digital do usuario presente
 15/11/2022 01:22:02 [INFO]: Digitais verificadas
 15/11/2022 01:22:02 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 01:27:24 [INFO]: Aplicacao iniciada
+15/11/2022 01:27:24 [INFO]: Procurando arquivo de configuracao
+15/11/2022 01:28:07 [INFO]: Requisicao de banco por: administrador
+15/11/2022 01:29:16 [APPLICATION]: Erro inesperado de validacao
+15/11/2022 01:29:20 [INFO]: Aplicacao iniciada
+15/11/2022 01:29:20 [INFO]: Procurando arquivo de configuracao
+15/11/2022 01:29:27 [INFO]: Requisicao de banco por: administrador
+15/11/2022 01:29:46 [INFO]: Thread iniciada
+15/11/2022 01:29:47 [INFO]: Digital do usuario presente
+15/11/2022 01:30:00 [INFO]: Digitais verificadas
+15/11/2022 01:30:00 [INFO]: Usuario: administrador autenticado com sucesso
