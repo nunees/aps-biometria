@@ -1,0 +1,7 @@
+15/11/2022 01:21:48 [INFO]: Aplicacao iniciada
+15/11/2022 01:21:48 [INFO]: Procurando arquivo de configuracao
+15/11/2022 01:21:57 [INFO]: Requisicao de banco por: administrador
+15/11/2022 01:22:00 [INFO]: Thread iniciada
+15/11/2022 01:22:01 [INFO]: Digital do usuario presente
+15/11/2022 01:22:02 [INFO]: Digitais verificadas
+15/11/2022 01:22:02 [INFO]: Usuario: administrador autenticado com sucesso
