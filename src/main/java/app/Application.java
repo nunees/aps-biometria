@@ -27,7 +27,7 @@ public class Application {
 
     public static void main(String[] args) throws SQLException, IOException {
         new SQLiteJDBCDriverConnection();
-        Application application = new Application();
+        new Application();
     }
 
     public static UsuarioDto usuarioDto(){

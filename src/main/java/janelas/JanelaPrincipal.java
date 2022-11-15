@@ -12,11 +12,8 @@ import java.util.Date;
 import java.util.Objects;
 
 public class JanelaPrincipal extends JFrame {
-
     private JLabel lblNomeUsuario;
-    private JLabel lblNivelAcessoUsuario;
     private JLabel lblMsgNivelAcessoUser;
-
     private Application application;
 
     public JanelaPrincipal(UsuarioDto usuarioDto) throws IOException {
@@ -29,7 +26,6 @@ public class JanelaPrincipal extends JFrame {
         getContentPane().setLayout(null);
         setLocationRelativeTo(null);
         setResizable(false);
-        setPanel(usuarioDto);
         exibe(false);
     }
 
@@ -49,25 +45,32 @@ public class JanelaPrincipal extends JFrame {
         menuBar.add(arquivoMenu);
         arquivoMenu.add(sairMenuItem);
 
-        JMenu pesquisarMenu = new JMenu("Usuarios");
-        JMenuItem cadastrarUsuario = new JMenuItem("Cadastrar");
-        cadastrarUsuario.addActionListener(e -> {
-            JanelaCadastro janelaCadastro = new JanelaCadastro(this);
-            janelaCadastro.setVisible(true);
-        });
-        JMenuItem pesquisarUsuario = new JMenuItem("Listar");
-        pesquisarUsuario.addActionListener(e -> {
-            JanelaUsuarios janelaUsuarios = new JanelaUsuarios(this);
-            janelaUsuarios.setVisible(true);
-        });
-        menuBar.add(pesquisarMenu);
-        pesquisarMenu.add(pesquisarUsuario);
-        pesquisarMenu.add(cadastrarUsuario);
+        if(Application.usuarioDto().getAdmin()) {
+            JMenu pesquisarMenu = new JMenu("Usuarios");
+            JMenuItem cadastrarUsuario = new JMenuItem("Cadastrar");
+            cadastrarUsuario.addActionListener(e -> {
+                JanelaCadastro janelaCadastro = new JanelaCadastro(this);
+                janelaCadastro.setVisible(true);
+            });
+            JMenuItem pesquisarUsuario = new JMenuItem("Listar");
+            pesquisarUsuario.addActionListener(e -> {
+                JanelaUsuarios janelaUsuarios = new JanelaUsuarios(this);
+                janelaUsuarios.setVisible(true);
+            });
+            menuBar.add(pesquisarMenu);
+            pesquisarMenu.add(pesquisarUsuario);
+            pesquisarMenu.add(cadastrarUsuario);
+        }
 
         JMenu sobreMenu = new JMenu("Ajuda");
         JMenuItem sobrePrograma = new JMenuItem("Sobre");
         sobrePrograma.addActionListener(e -> {
-            JanelaSobre janelaSobre = new JanelaSobre(this);
+            JanelaSobre janelaSobre = null;
+            try {
+                janelaSobre = new JanelaSobre(this);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             janelaSobre.setVisible(true);
         });
         menuBar.add(sobreMenu);
@@ -88,14 +91,11 @@ public class JanelaPrincipal extends JFrame {
         lblNivelAcesso.setBounds(10, 25, 101, 16);
         getContentPane().add(lblNivelAcesso);
 
-        lblNivelAcessoUsuario = new JLabel();
+        JLabel lblNivelAcessoUsuario = new JLabel();
         lblNivelAcessoUsuario.setFont(new Font("Dialog", Font.PLAIN, 12));
-        lblNivelAcessoUsuario.setBounds(110, 25, 100, 16);
-        lblNivelAcessoUsuario.setText(Integer.toString(Application.usuarioDto().getNivelDeAcesso()));
-        lblNivelAcessoUsuario.revalidate();
-        lblNivelAcessoUsuario.repaint();
+        lblNivelAcessoUsuario.setBounds(110, 25, 50, 16);
+        lblNivelAcessoUsuario.setText(Integer.toString(usuarioDto.getNivelDeAcesso()));
         getContentPane().add(lblNivelAcessoUsuario);
-
 
         JLabel lblUtimaAtualizacaoDB = new JLabel("Ultima atualização:");
         lblUtimaAtualizacaoDB.setBounds(10, 50, 221, 16);
@@ -163,7 +163,8 @@ public class JanelaPrincipal extends JFrame {
         panel.add(lblMsgNivelAcesso);
         lblMsgNivelAcesso.setForeground(new Color(0, 128, 0));
 
-        lblMsgNivelAcessoUser = new JLabel(Integer.toString(Application.usuarioDto().getNivelDeAcesso()));
+        lblMsgNivelAcessoUser = new JLabel();
+        lblMsgNivelAcessoUser.setText(Integer.toString(usuarioDto.getNivelDeAcesso()));
         lblMsgNivelAcessoUser.setForeground(new Color(0, 128, 0));
         lblMsgNivelAcessoUser.setBounds(310, 7, 100, 16);
         panel.add(lblMsgNivelAcessoUser);
@@ -176,8 +177,6 @@ public class JanelaPrincipal extends JFrame {
         JSeparator separator_1 = new JSeparator();
         separator_1.setBounds(0, 265, 500, 2);
         getContentPane().add(separator_1);
-
-        System.out.println(Application.usuarioDto().toString());
 
     }
 }

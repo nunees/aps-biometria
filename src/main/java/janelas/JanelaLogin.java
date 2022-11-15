@@ -15,6 +15,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Objects;
 
 public class JanelaLogin extends JFrame {
@@ -87,6 +88,7 @@ public class JanelaLogin extends JFrame {
                             Application.usuarioDto().setCaminhoArquivoDeDigital(usuario.getCaminhoArquivoDeDigital());
                             Application.usuarioDto().setNivelDeAcesso(usuario.getNivelDeAcesso());
                             Application.usuarioDto().setAdmin(usuario.getAdmin());
+                            Application.usuarioDto().setCreated_at(usuario.getCreated_at());
                             validarDigitais = new ValidarDigitais(txtNomeUsuario.getText(), mainWindow);
                             if(validarDigitais.autenticado){
                                 this.janelaPrincipal.setPanel(Application.usuario);
