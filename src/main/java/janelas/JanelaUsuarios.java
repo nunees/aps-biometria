@@ -3,6 +3,8 @@ package janelas;
 import db.DatabaseQueryExecutor;
 import db.DatabaseConnectionDriver;
 import dto.UsuarioDto;
+import utils.Log;
+import utils.TipoLog;
 
 import java.awt.Choice;
 import java.awt.Color;
@@ -81,41 +83,39 @@ public class JanelaUsuarios extends JFrame{
         for (String name : this.usuarios) {
             ch.add(name);
         }
-        ch.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                try{
-                    Connection connection = new DatabaseConnectionDriver().getConnection();
-                    DatabaseQueryExecutor executor = new DatabaseQueryExecutor(connection);
-                    String username = e.getItem().toString();
-                    if(!Objects.equals(username, "")){
-                        UsuarioDto usuario = executor.findUsuario(username);
-                        if(usuario != null){
-                            lblNomeUsuario.setText(usuario.getNome());
-                            lblSobrenomeUsuario.setText(usuario.getSobrenome());
-                            lblUsernameUsuario.setText(usuario.getNomeDeUsuario());
-                            lblNivelUsuario.setText(Integer.toString(usuario.getNivelDeAcesso()));
-                            if(usuario.getAdmin()){
-                                lblAdminUsuario.setText("Sim");
-                            }else{
-                                lblAdminUsuario.setText("Não");
-                            }
-                            Date created_at = usuario.getCreated_at();
-                            lblCreatedAtUsuario.setText(created_at.toString());
-
-                            imageIcon = new ImageIcon(usuario.getCaminhoArquivoDeDigital());
-                            image = imageIcon.getImage();
-                            novaImage = image.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-                            imageIcon = new ImageIcon(novaImage);
-                            imagePreview.setIcon(imageIcon);
-                            imagePreview.setBounds(180,400,200,200);
+        ch.addItemListener(e -> {
+            try{
+                Connection connection = new DatabaseConnectionDriver().getConnection();
+                DatabaseQueryExecutor executor = new DatabaseQueryExecutor(connection);
+                String username = e.getItem().toString();
+                if(!Objects.equals(username, "")){
+                    UsuarioDto usuario = executor.findUsuario(username);
+                    if(usuario != null){
+                        lblNomeUsuario.setText(usuario.getNome());
+                        lblSobrenomeUsuario.setText(usuario.getSobrenome());
+                        lblUsernameUsuario.setText(usuario.getNomeDeUsuario());
+                        lblNivelUsuario.setText(Integer.toString(usuario.getNivelDeAcesso()));
+                        if(usuario.getAdmin()){
+                            lblAdminUsuario.setText("Sim");
+                        }else{
+                            lblAdminUsuario.setText("Não");
                         }
+                        Date created_at = usuario.getCreated_at();
+                        lblCreatedAtUsuario.setText(created_at.toString());
+
+                        imageIcon = new ImageIcon(usuario.getCaminhoArquivoDeDigital());
+                        image = imageIcon.getImage();
+                        novaImage = image.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                        imageIcon = new ImageIcon(novaImage);
+                        imagePreview.setIcon(imageIcon);
+                        imagePreview.setBounds(180,400,200,200);
                     }
-                    System.out.println(username);
-                }catch (SQLException sqlException){
-                    sqlException.printStackTrace();
-                    throw new RuntimeException(sqlException);
                 }
+                System.out.println(username);
+            }catch (SQLException sqlException){
+                Log.print(TipoLog.ERRO, sqlException.getMessage());
+                sqlException.printStackTrace();
+                throw new RuntimeException(sqlException);
             }
         });
         container.add(ch);

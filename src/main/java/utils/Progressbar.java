@@ -27,7 +27,7 @@ public class Progressbar {
             jProgressDialog.getContentPane().setLayout(new BorderLayout());
 
             JPanel contentPanel = new JPanel();
-            contentPanel.setBackground(Color.YELLOW);
+            contentPanel.setBackground(Color.WHITE);
             contentPanel.setBorder(new EmptyBorder(5,5,5,5));
 
             jProgressDialog.getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -42,7 +42,7 @@ public class Progressbar {
             progressBar.setForeground(SystemColor.textHighlight);
             progressBar.setIndeterminate(true);
 
-            contentPanel.add(progressBar);
+            //contentPanel.add(progressBar);
 
             jProgressDialog.add(contentPanel);
             jProgressDialog.setLocationRelativeTo(janelaReferencia);
