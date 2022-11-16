@@ -130,3 +130,152 @@
 15/11/2022 20:59:35 [INFO]: Digital do usuario presente
 15/11/2022 20:59:37 [INFO]: Digitais verificadas
 15/11/2022 20:59:37 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:08:33 [INFO]: Aplicacao iniciada
+15/11/2022 23:08:33 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:08:38 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:08:40 [INFO]: Thread iniciada
+15/11/2022 23:08:42 [INFO]: Digital do usuario presente
+15/11/2022 23:08:42 [INFO]: Digitais verificadas
+15/11/2022 23:08:43 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:09:20 [INFO]: Aplicacao iniciada
+15/11/2022 23:09:20 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:09:25 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:09:27 [INFO]: Thread iniciada
+15/11/2022 23:09:28 [INFO]: Digital do usuario presente
+15/11/2022 23:09:29 [INFO]: Digitais verificadas
+15/11/2022 23:09:29 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:10:34 [INFO]: Aplicacao iniciada
+15/11/2022 23:10:34 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:10:34 [ALERTA]: File not exists!
+15/11/2022 23:10:34 [INFO]: File Created
+15/11/2022 23:10:34 [INFO]: Criando banco de dados
+15/11/2022 23:10:39 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:10:41 [INFO]: Thread iniciada
+15/11/2022 23:10:43 [INFO]: Digital do usuario presente
+15/11/2022 23:10:43 [INFO]: Digitais verificadas
+15/11/2022 23:10:43 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:12:56 [INFO]: Aplicacao iniciada
+15/11/2022 23:12:56 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:13:06 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:13:08 [INFO]: Thread iniciada
+15/11/2022 23:13:10 [INFO]: Digital do usuario presente
+15/11/2022 23:13:11 [INFO]: Digitais verificadas
+15/11/2022 23:13:11 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:24:14 [INFO]: Aplicacao iniciada
+15/11/2022 23:24:14 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:24:21 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:24:23 [INFO]: Thread iniciada
+15/11/2022 23:24:25 [INFO]: Digital do usuario presente
+15/11/2022 23:24:25 [INFO]: Digitais verificadas
+15/11/2022 23:24:25 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:26:24 [INFO]: Aplicacao iniciada
+15/11/2022 23:26:24 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:26:29 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:26:31 [INFO]: Thread iniciada
+15/11/2022 23:26:33 [INFO]: Digital do usuario presente
+15/11/2022 23:26:33 [INFO]: Digitais verificadas
+15/11/2022 23:26:33 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:27:37 [INFO]: Aplicacao iniciada
+15/11/2022 23:27:37 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:27:43 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:27:45 [INFO]: Thread iniciada
+15/11/2022 23:27:46 [INFO]: Digital do usuario presente
+15/11/2022 23:27:47 [INFO]: Digitais verificadas
+15/11/2022 23:27:47 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:29:01 [INFO]: Aplicacao iniciada
+15/11/2022 23:29:01 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:29:06 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:29:09 [INFO]: Thread iniciada
+15/11/2022 23:29:10 [INFO]: Digital do usuario presente
+15/11/2022 23:29:11 [INFO]: Digitais verificadas
+15/11/2022 23:29:11 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:30:01 [INFO]: Aplicacao iniciada
+15/11/2022 23:30:01 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:30:07 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:30:10 [INFO]: Thread iniciada
+15/11/2022 23:30:11 [INFO]: Digital do usuario presente
+15/11/2022 23:30:35 [INFO]: Digitais verificadas
+15/11/2022 23:30:35 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:31:35 [INFO]: Aplicacao iniciada
+15/11/2022 23:31:35 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:31:40 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:31:43 [INFO]: Thread iniciada
+15/11/2022 23:31:44 [INFO]: Digital do usuario presente
+15/11/2022 23:31:45 [INFO]: Digitais verificadas
+15/11/2022 23:31:45 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:55:56 [INFO]: Aplicacao iniciada
+15/11/2022 23:55:56 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:56:02 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:56:04 [INFO]: Thread iniciada
+15/11/2022 23:56:06 [INFO]: Digital do usuario presente
+15/11/2022 23:56:06 [INFO]: Digitais verificadas
+15/11/2022 23:56:06 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:56:30 [INFO]: Aplicacao iniciada
+15/11/2022 23:56:30 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:57:00 [INFO]: Aplicacao iniciada
+15/11/2022 23:57:00 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:57:05 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:57:07 [INFO]: Thread iniciada
+15/11/2022 23:57:09 [INFO]: Digital do usuario presente
+15/11/2022 23:57:10 [INFO]: Digitais verificadas
+15/11/2022 23:57:10 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:57:43 [INFO]: Aplicacao iniciada
+15/11/2022 23:57:43 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:57:48 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:57:50 [INFO]: Thread iniciada
+15/11/2022 23:57:51 [INFO]: Digital do usuario presente
+15/11/2022 23:57:52 [INFO]: Digitais verificadas
+15/11/2022 23:57:52 [INFO]: Usuario: administrador autenticado com sucesso
+15/11/2022 23:57:59 [ERRO]: no such column: 'nome'
+15/11/2022 23:59:00 [INFO]: Aplicacao iniciada
+15/11/2022 23:59:00 [INFO]: Procurando arquivo de configuracao
+15/11/2022 23:59:05 [INFO]: Requisicao de banco por: administrador
+15/11/2022 23:59:08 [INFO]: Thread iniciada
+15/11/2022 23:59:10 [INFO]: Digital do usuario presente
+15/11/2022 23:59:10 [INFO]: Digitais verificadas
+15/11/2022 23:59:10 [INFO]: Usuario: administrador autenticado com sucesso
+16/11/2022 00:23:12 [INFO]: Aplicacao iniciada
+16/11/2022 00:23:12 [INFO]: Procurando arquivo de configuracao
+16/11/2022 00:23:20 [INFO]: Requisicao de banco por: administrador
+16/11/2022 00:23:26 [INFO]: Thread iniciada
+16/11/2022 00:23:27 [INFO]: Digital do usuario presente
+16/11/2022 00:23:28 [INFO]: Digitais verificadas
+16/11/2022 00:23:28 [INFO]: Usuario: administrador autenticado com sucesso
+16/11/2022 00:24:11 [INFO]: Aplicacao iniciada
+16/11/2022 00:24:11 [INFO]: Procurando arquivo de configuracao
+16/11/2022 00:24:16 [INFO]: Requisicao de banco por: administrador
+16/11/2022 00:24:19 [INFO]: Thread iniciada
+16/11/2022 00:24:20 [INFO]: Digital do usuario presente
+16/11/2022 00:24:26 [INFO]: Digitais verificadas
+16/11/2022 00:24:26 [INFO]: Usuario: administrador autenticado com sucesso
+16/11/2022 00:41:33 [INFO]: Aplicacao iniciada
+16/11/2022 00:41:33 [INFO]: Procurando arquivo de configuracao
+16/11/2022 00:41:33 [ALERTA]: File not exists!
+16/11/2022 00:41:33 [INFO]: File Created
+16/11/2022 00:41:33 [INFO]: Criando banco de dados
+16/11/2022 00:41:39 [INFO]: Requisicao de banco por: administrador
+16/11/2022 00:41:43 [INFO]: Thread iniciada
+16/11/2022 00:41:44 [INFO]: Digital do usuario presente
+16/11/2022 00:41:45 [INFO]: Digitais verificadas
+16/11/2022 00:41:45 [INFO]: Usuario: administrador autenticado com sucesso
+16/11/2022 00:42:35 [INFO]: Aplicacao iniciada
+16/11/2022 00:42:35 [INFO]: Procurando arquivo de configuracao
+16/11/2022 00:42:43 [INFO]: Requisicao de banco por: administrador
+16/11/2022 00:42:45 [INFO]: Thread iniciada
+16/11/2022 00:42:46 [INFO]: Digital do usuario presente
+16/11/2022 00:42:47 [INFO]: Digitais verificadas
+16/11/2022 00:42:47 [INFO]: Usuario: administrador autenticado com sucesso
+16/11/2022 00:43:14 [INFO]: Aplicacao iniciada
+16/11/2022 00:43:14 [INFO]: Procurando arquivo de configuracao
+16/11/2022 00:43:22 [INFO]: Requisicao de banco por: administrador
+16/11/2022 00:43:24 [INFO]: Thread iniciada
+16/11/2022 00:43:26 [INFO]: Digital do usuario presente
+16/11/2022 00:43:26 [INFO]: Digitais verificadas
+16/11/2022 00:43:26 [INFO]: Usuario: administrador autenticado com sucesso
+16/11/2022 00:45:33 [INFO]: Aplicacao iniciada
+16/11/2022 00:45:33 [INFO]: Procurando arquivo de configuracao
+16/11/2022 00:45:39 [INFO]: Requisicao de banco por: administrador
+16/11/2022 00:45:42 [INFO]: Thread iniciada
+16/11/2022 00:45:43 [INFO]: Digital do usuario presente
+16/11/2022 00:45:44 [INFO]: Digitais verificadas
+16/11/2022 00:45:44 [INFO]: Usuario: administrador autenticado com sucesso

@@ -32,6 +32,7 @@ public class Application {
                 Log.print(TipoLog.INFO, "File Created");
                 Log.print(TipoLog.INFO, "Criando banco de dados");
                 databaseInitTables.createTables();
+                databaseInitTables.populateTables();
             }
         }
 
