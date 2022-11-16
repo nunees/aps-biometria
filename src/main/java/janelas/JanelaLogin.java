@@ -75,9 +75,9 @@ public class JanelaLogin extends JFrame {
                 try {
                     Connection connection = new DatabaseConnectionDriver().getConnection();
                     DatabaseQueryExecutor executor = new DatabaseQueryExecutor(connection);
-                    Log.print(TipoLog.INFO, "Requisicao de banco por: " + txtNomeUsuario.getText());
-                    usuario = executor.findUsuario(txtNomeUsuario.getText());
-                    if(!Objects.equals(usuario.getNomeDeUsuario(), txtNomeUsuario.getText())){
+                    Log.print(TipoLog.INFO, "Requisicao de banco por: " + txtNomeUsuario.getText().toLowerCase());
+                    usuario = executor.findUsuario(txtNomeUsuario.getText().toLowerCase());
+                    if(!Objects.equals(usuario.getNomeDeUsuario(), txtNomeUsuario.getText().toLowerCase())){
                         Log.print(TipoLog.ERRO, "Acesso negado para: " + txtNomeUsuario.getText());
                         JOptionPane.showMessageDialog(null,"Usuario ou chave incorretos.\n" +
                                 "Em caso de erro contate o administrador do sistema." +

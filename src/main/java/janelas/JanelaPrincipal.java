@@ -8,16 +8,12 @@ import utils.TipoLog;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
 public class JanelaPrincipal extends JFrame {
-    private JLabel lblNomeUsuario;
-    private JLabel lblMsgNivelAcessoUser;
 
     public JanelaPrincipal() {
         try {
@@ -90,7 +86,7 @@ public class JanelaPrincipal extends JFrame {
         lblNome.setBounds(10, 5, 100, 16);
         getContentPane().add(lblNome);
 
-        lblNomeUsuario = new JLabel();
+        JLabel lblNomeUsuario = new JLabel();
         lblNomeUsuario.setText(usuarioDto.getNome());
         lblNomeUsuario.setFont(new Font("Dialog", Font.PLAIN, 12));
         lblNomeUsuario.setBounds(50, 5, 300, 16);
@@ -110,7 +106,7 @@ public class JanelaPrincipal extends JFrame {
         lblUtimaAtualizacaoDB.setBounds(10, 50, 221, 16);
         getContentPane().add(lblUtimaAtualizacaoDB);
 
-        JLabel lblDataUltAtualizacaoDB = new JLabel(new SimpleDateFormat("dd/MM/yyyy")
+        JLabel lblDataUltAtualizacaoDB = new JLabel(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
                 .format(new Date()));
         lblDataUltAtualizacaoDB.setFont(new Font("Dialog", Font.PLAIN, 12));
         lblDataUltAtualizacaoDB.setBounds(120, 50, 500, 16);
@@ -135,6 +131,7 @@ public class JanelaPrincipal extends JFrame {
             }else{
                 JOptionPane.showMessageDialog(null,"Você não tem permissão de acesso!" +
                         "\nContate um administrador", "Permissão Negada", JOptionPane.WARNING_MESSAGE);
+                Log.print(TipoLog.ERRO, "Permissao negada para: " + usuarioDto.getNomeDeUsuario());
             }
 
         });
@@ -149,6 +146,7 @@ public class JanelaPrincipal extends JFrame {
             }else{
                 JOptionPane.showMessageDialog(null,"Você não tem permissão de acesso!" +
                         "\nContate um administrador", "Permissão Negada", JOptionPane.WARNING_MESSAGE);
+                Log.print(TipoLog.ERRO, "Permissao negada para: " + usuarioDto.getNomeDeUsuario());
             }
 
         });
@@ -163,19 +161,20 @@ public class JanelaPrincipal extends JFrame {
             }else{
                 JOptionPane.showMessageDialog(null,"Você não tem permissão de acesso!" +
                         "\nContate um administrador", "Permissão Negada", JOptionPane.WARNING_MESSAGE);
+                Log.print(TipoLog.ERRO, "Permissao negada para: " + usuarioDto.getNomeDeUsuario());
             }
         });
         panel.add(btnPropriedades);
 
-        JLabel lblMsgNivelAcesso = new JLabel("Você tem permissão para acessar arquivos de nível");
-        lblMsgNivelAcesso.setBounds(11, 7, 300, 16);
+        JLabel lblMsgNivelAcesso = new JLabel("Você tem permissão para acessar informacoes de nível");
+        lblMsgNivelAcesso.setBounds(11, 7, 400, 16);
         panel.add(lblMsgNivelAcesso);
         lblMsgNivelAcesso.setForeground(new Color(0, 128, 0));
 
-        lblMsgNivelAcessoUser = new JLabel();
+        JLabel lblMsgNivelAcessoUser = new JLabel();
         lblMsgNivelAcessoUser.setText(Integer.toString(usuarioDto.getNivelDeAcesso()));
         lblMsgNivelAcessoUser.setForeground(new Color(0, 128, 0));
-        lblMsgNivelAcessoUser.setBounds(310, 7, 100, 16);
+        lblMsgNivelAcessoUser.setBounds(335, 7, 100, 16);
         panel.add(lblMsgNivelAcessoUser);
 
 
