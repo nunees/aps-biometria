@@ -40,4 +40,4 @@ As informaçoes de proprietarios, agrotóxicos e propriedades são dependentes d
 ![Tela cadastro preenchido](assets/tela_cadastro_preenchido.png) ![Tela visualização usuarios](assets/tela_usuarios_detalhados.png)
 
 O programa também gera logs que mais tarde podem ser usados para controle de acesso ou depuração de código.
-![Tela log](assets/arquivo_log.png)
+![Tela log](assets/arquivo_log.png) 
